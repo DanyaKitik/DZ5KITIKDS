@@ -4,17 +4,17 @@ namespace App;
 
 class Money{
     private float $amount;
-    private string $currency;
-    public function __construct(float $amount,string $currency)
+    private object $currency;
+    public function __construct(float $amount,object $currency)
     {
       $this->setCurrency($currency);
       $this->setAmount($amount);
     }
-    public function getCurrency(): string
+    public function getCurrency(): object
     {
         return $this->currency;
     }
-    private function setCurrency(string $currency): void
+    private function setCurrency(object  $currency): void
     {
         $this->currency = $currency;
     }
@@ -26,32 +26,26 @@ class Money{
     {
         $this->amount = $amount;
     }
-    public function equal(self $money): string
+    public function equal(self $money): bool
     {
-        if($this->getAmount() === $money->getAmount()){
-            $amount = '<br>amount equal';
+        if($this->getAmount() === $money->getAmount() && $this->getCurrency() === $money->getCurrency()){
+            return true;
         }
         else{
-            $amount = '<br>amount not equal';
+            return false;
         }
-        if($this->getCurrency() === $money->getCurrency()){
-            $currency = '<br>currency equal';
-        }
-        else{
-            $currency = '<br>currency not equal';
-        }
-        return $amount.$currency;
+
     }
     public function sum(self $money)
     {
         if($this->getCurrency() === $money->getCurrency()){
             return new self($this->getAmount()+ $money->getAmount(),$this->getCurrency());
         }
-        exit("InvalidArgumentException IsoCode should be the same for sum");
+        throw new \Exception("InvalidArgumentException IsoCode should be the same for sum");
     }
-    public function showMoney(): string
-    {
-        $formatter = new \NumberFormatter('ru_RU', \NumberFormatter::CURRENCY);
-            return  $formatter->formatCurrency(self::getAmount(),self::getCurrency());
-    }
+//    public function showMoney(): string
+//    {
+//        $formatter = new \NumberFormatter('ru_RU', \NumberFormatter::CURRENCY);
+//            return  $formatter->formatCurrency(self::getAmount(),self::getCurrency());
+//    }
 }
