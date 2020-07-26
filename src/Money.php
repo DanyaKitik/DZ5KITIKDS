@@ -43,9 +43,9 @@ class Money{
         }
         throw new \Exception("InvalidArgumentException IsoCode should be the same for sum");
     }
-//    public function showMoney(): string
-//    {
-//        $formatter = new \NumberFormatter('ru_RU', \NumberFormatter::CURRENCY);
-//            return  $formatter->formatCurrency(self::getAmount(),self::getCurrency());
-//    }
+    public function showMoney(string $currency): string
+    {
+        $formatter = new \NumberFormatter('ru_RU', \NumberFormatter::CURRENCY);
+            return  $formatter->formatCurrency(self::getAmount(),$currency);
+    }
 }
